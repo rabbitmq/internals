@@ -53,7 +53,7 @@ TLS listeners, respectively.
 RabbitMQ as of 3.6.0 uses [Ranch](https://github.com/ninenines/ranch) in [embedded mode](https://github.com/ninenines/ranch/blob/master/doc/src/guide/embedded.asciidoc)
 to accept TCP connections.
 
-Listener processes are represented by two processes, which are
+Listeners are represented by two processes, which are
 started under the `tcp_listener_sup` supervisor:
 
  * `tcp_listener`
@@ -134,3 +134,7 @@ is closed or lost, all exclusive queues that belonged to it must be
 cleaned up.
 
 `rabbit_queue_collector` is a `gen_server` which handles the above.
+
+
+## STOMP Connetion Process Tree
+
