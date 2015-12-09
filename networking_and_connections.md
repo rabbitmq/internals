@@ -82,6 +82,7 @@ Every AMQP 0-9-1 connection has a supervisor, `rabbit_connection_sup`, which is 
 
 So the hierarchy of processes looks like this:
 
+``` org-mode
  * rabbit_connection_sup
  ** rabbit_reader
  ** rabbit_connection_helper_sup
@@ -89,7 +90,7 @@ So the hierarchy of processes looks like this:
  *** heartbeat_receiver
  *** heartbeat_sender
  *** rabbit_queue_collector
-
+```
 
 ### rabbit_reader
 
