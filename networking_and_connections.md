@@ -53,7 +53,7 @@ TLS listeners, respectively.
 RabbitMQ as of 3.6.0 uses [Ranch](https://github.com/ninenines/ranch) in [embedded mode](https://github.com/ninenines/ranch/blob/master/doc/src/guide/embedded.asciidoc)
 to accept TCP connections.
 
-Listeners are represented by two processes, which are
+A listener is represented by two processes, which are
 started under the `tcp_listener_sup` supervisor:
 
  * `tcp_listener`
