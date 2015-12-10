@@ -138,4 +138,33 @@ cleaned up.
 
 ## STOMP Connetion Process Tree
 
-TBD
+For STOMP, TCP listener and Ranch supervision tree is similar to
+that of AMQP 0-9-1 (see above) except that the `tcp_listener_sup` supervisor
+is under `rabbit_stomp_sup`.
+
+Every STOMP client connection has a supervisor, `rabbit_stomp_client_sup`, which
+supervises 3 processes:
+
+ * `rabbit_stomp_reader`
+ * `rabbit_stomp_processor`
+ * `rabbit_stomp_heartbeat_sup`
+
+`rabbit_stomp_reader` is similar to `rabbit_reader`. `rabbit_stomp_processor`
+handles parsed protocol commands (in the future, it will be rolled into `rabbit_reader`
+for simplicity).
+
+Finally, `rabbit_stomp_heartbeat_sup` supervises heartbeat delivery,
+reusing `rabbit_heartbeat`.
+
+
+## MQTT Connection Process Tree
+
+MQTT TCP listener and Ranch supervision tree is effectively identical to
+that of STOMP (see above).
+
+Every MQTT client connection has a supervisor, `rabbit_mqtt_connection_sup`,
+which supervises two processes:
+
+ * `rabbit_mqtt_reader` combines protocol parsing, state machine, and command handling
+ * `rabbit_mqtt_keepalive_sup` that handles MQTT keep-alives (heartbeats),
+   reusing `rabbit_heartbeat`
