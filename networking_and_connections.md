@@ -143,15 +143,14 @@ that of AMQP 0-9-1 (see above) except that the `tcp_listener_sup` supervisor
 is under `rabbit_stomp_sup`.
 
 Every STOMP client connection has a supervisor, `rabbit_stomp_client_sup`, which
-supervises 3 processes:
+supervises 2 processes:
 
  * `rabbit_stomp_reader`
- * `rabbit_stomp_processor`
  * `rabbit_stomp_heartbeat_sup`
 
-`rabbit_stomp_reader` is similar to `rabbit_reader`. `rabbit_stomp_processor`
-handles parsed protocol commands (in the future, it will be rolled into `rabbit_reader`
-for simplicity).
+`rabbit_stomp_reader` is similar to `rabbit_reader` but also
+handles parsed protocol commands (this structure is new in 3.6.0 and
+matches the one used by MQTT plugin).
 
 Finally, `rabbit_stomp_heartbeat_sup` supervises heartbeat delivery,
 reusing `rabbit_heartbeat`.
