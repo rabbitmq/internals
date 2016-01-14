@@ -6,7 +6,7 @@ Events and management DB
  - rabbit_event, management DB stats types, event -> stats mapping
 
 Profiling / debugging
- - fprof, dbg (I really only use fprof)
+ - fprof and/or dbg
 
 Shovel / federation
  - History / rationales, how they work, Erlang client, future directions
