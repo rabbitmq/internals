@@ -59,7 +59,7 @@ messages in it, this means at some point we have paged to disk, so
 some messages that were at the rear of `q4` are in `q3` now. This
 means a new message _can't_ be inserted into `q4`, otherwise we will
 lose message ordering; therefore, if `q3` has messages, new messages
-go into `q4`.
+go into `q1`.
 
 ```erlang
 case ?QUEUE:is_empty(Q3) of
