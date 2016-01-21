@@ -1,4 +1,4 @@
-# Authorization and Authentication Backends.
+# Authorization and Authentication Backends
 
 This document describes authentication and authorization machinery that
 implements [access control](https://www.rabbitmq.com/access-control.html).
