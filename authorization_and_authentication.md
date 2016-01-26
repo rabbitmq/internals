@@ -19,8 +19,8 @@ authentication as "identifying who the user is" and authorization as
 Authentication and authorization are pluggable. Modules that provide implementations
 must implement the following behaviours:
 
-- `rabbit_authn_backend` for authentication ("authn") backends
-- `rabbit_authz_backend` for authorization ("authz") backends
+ * `rabbit_authn_backend` for authentication ("authn") backends
+ * `rabbit_authz_backend` for authorization ("authz") backends
 
 It is possible to implement both in a single module.
 For example `internal`, `ldap` and `http` backends do so.
