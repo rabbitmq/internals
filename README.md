@@ -65,7 +65,7 @@ following guides:
 
 ### Authentication and Authorization ###
 
-As explained on the [Basic Publish](./basic_publish.md), there are
+As explained in the [Basic Publish](./basic_publish.md), there are
 some rules to see if a message can be accepted by the broker from a
 certain publisher. This is explained in the following guide:
 
