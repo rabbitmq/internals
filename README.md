@@ -26,7 +26,7 @@ the following guides to help you understand how RabbitMQ works:
 Here we follow the life of a message since it's received from the
 network until it has been routed by the exchanges. We take a look at
 the various processing steps that happen to a message right until it
-is delivered one or perhaps many queues.
+is delivered to one or perhaps many queues.
 
 [Basic Publish](./basic_publish.md).
 
