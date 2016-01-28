@@ -15,7 +15,7 @@ to the overall architecture.
 ## Guides ##
 
 In order to understand how RabbitMQ's internals work, it's better to
-try to follow the logic of how a messages progresses through
+try to follow the logic of how a message progresses through
 RabbitMQ as it is handled by the broker, otherwise, you would end up
 navigating through many guides without a clear context of what's going
 on, or without knowing what to read next. Therefore we have prepared
