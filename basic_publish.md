@@ -7,7 +7,7 @@ subsystems a message crosses inside the broker. Let's start by
 `rabbit_reader`.
 
 The `rabbit_reader` process is the one that takes care of reading data
-form the network and forwarding it to the respective channel
+from the network and forwarding it to the respective channel
 process. Messages get into the channel when the reader calls the
 function `rabbit_channel:do_flow/3`, this function will call the
 `credit_flow` module to track that a message was received from the
