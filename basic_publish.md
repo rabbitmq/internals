@@ -87,7 +87,7 @@ the exchange actually exists, so the function
 actual exchange record from the database, if the exchange is not found,
 then a channel error is raised by `lookup_or_die/1`. Keep in mind that
 one thing is the exchange resource we mentioned above, and another
-much different is the exchange record stored in mnesia. The later
+much different is the exchange record stored in mnesia. The latter
 holds up much more information about the actual exchange, like it's
 type for example (direct, fanout, topic, etc). Here's the exchange
 record definition from `rabbit.hrl`:
