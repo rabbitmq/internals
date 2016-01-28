@@ -28,7 +28,7 @@ network until it has been routed by the exchanges. We take a look at
 the various processing steps that happen to a message right until it
 is delivered to one or perhaps many queues.
 
-[Basic Publish](./basic_publish.md).
+[Basic Publish](./basic_publish.md)
 
 ### Deliver To Queues Guide ###
 
