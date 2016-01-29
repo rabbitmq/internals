@@ -90,7 +90,7 @@ which will send the confirm back to the channel using the
 
 If the queue was non durable, or the message was published as
 transient, then the queue process will proceed to issue a confirm back
-to the channel that send the message in.
+to the channel that sent the message in.
 
 The function `rabbit_misc:confirm_to_sender/2` is the one taking care
 of sending confirms back to channels.
