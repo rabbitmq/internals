@@ -17,7 +17,7 @@ this callback mumbo-jumbo means.
 Understanding how this callback works is vital since the persistence
 layer of the backing queue does heavy use of the _process dictionary_
 and the use of `self()` to track who opened which file handle. What
-this means is that even tho the the backing queue behaviour callbacks
+this means is that even tho the backing queue behaviour callbacks
 seem to have the referential transparent property, they do not. Behind
 the scenes, some of the backing queue behaviour callbacks will `put/get`
 values to/from the process dictionary, but if one of said callbacks is
@@ -185,7 +185,7 @@ This very same technique is used on `rabbit_variable_queue:init/3` to
 setup the functions that will write messages to disk (see
 `rabbit_variable_queue:msgs_written_to_disk/3`) and the ones that will
 write the message indexes to disk (see
-`rabbit_variable_queue:msg_indices_written_to_disk/2).
+`rabbit_variable_queue:msg_indices_written_to_disk/2`).
 
 ## It's About Context ##
 

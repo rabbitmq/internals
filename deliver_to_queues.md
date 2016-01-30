@@ -52,7 +52,7 @@ monitor the message sender. The message sender is usually the
 `rabbit_channel` that received the process. This pid is tracked using
 the
 [pmon module](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/pmon.erl). The
-state is kept as part of the `senders` filed in the gen_server state
+state is kept as part of the `senders` field in the gen_server state
 record. Once the message sender is accounted for the delivery is
 passed to the function `deliver_or_enqueue/3`. There is where the
 message will either be sent to a consumer or enqueued into the backing
@@ -147,7 +147,7 @@ same way as explained above.
 If a message cannot be discarded, then it has to be enqueued, so the
 queue process will `publish` the message into the backing queue. After
 the message has been published, we need to enforce the various
-policies that might apply to this queue, like `max--length` for
+policies that might apply to this queue, like `max-length` for
 example. This means we need to see if the queue head has to be
 dropped. Once that's enforced, then we also have to check if we need
 to drop expired messages. Both these functions work in conjunction

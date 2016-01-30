@@ -29,7 +29,7 @@ is_persistent = IsDurable andalso IsPersistent
 ```
 
 If it was determined that the message needs persistence, then it will
-be immediately written to disk, either to the message store or the the
+be immediately written to disk, either to the message store or the 
 queue index, depending on the message size (see
 `queue_index_embed_msgs_below`).
 
