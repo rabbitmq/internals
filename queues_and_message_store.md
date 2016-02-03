@@ -10,7 +10,7 @@ Startup
 
 The queue's supervisor initially starts the process as
 rabbit_prequeue. This is a gen_server which determines whether the
-process is a an HA slave or a regular queue or master (see HA
+process is an HA slave or a regular queue or master (see HA
 documentation), and if so whether it is starting afresh or needs to
 recover. This then uses the gen_server2 "become" mechanism to become
 the correct sort of process - for this document we'll deal with

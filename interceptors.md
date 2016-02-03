@@ -7,7 +7,7 @@ development of the
 [Sharding Plugin](https://github.com/rabbitmq/rabbitmq-sharding/blob/master/README.extra.md#intercepted-channel-behaviour)
 to facilitate mapping queue names as specified by users vs. the actual
 names used by sharded queues. Another plugin using interceptors is the
-[Message Timestam Plugin](https://github.com/rabbitmq/rabbitmq-message-timestamp)
+[Message Timestamp Plugin](https://github.com/rabbitmq/rabbitmq-message-timestamp)
 which injects timestamps into message properties during
 `basic.publish`.
 

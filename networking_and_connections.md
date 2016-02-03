@@ -136,7 +136,7 @@ cleaned up.
 `rabbit_queue_collector` is a `gen_server` which handles the above.
 
 
-## STOMP Connetion Process Tree
+## STOMP Connection Process Tree
 
 For STOMP, TCP listener and Ranch supervision tree is similar to
 that of AMQP 0-9-1 (see above) except that the `tcp_listener_sup` supervisor

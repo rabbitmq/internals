@@ -116,7 +116,7 @@ reader <--[grant]-- channel <--[grant]-- queue process <--[grant]--message store
 ```
 
 Having one channel and one queue process makes things easier to
-undertand but it might not reflect reality. It’s common for RabbitMQ
+understand but it might not reflect reality. It’s common for RabbitMQ
 users to have more than one channel publishing messages on the same
 connection. Even more common is to have one message being routed to
 more than one queue. What happens with the credit flow scheme we’ve
