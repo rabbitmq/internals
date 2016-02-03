@@ -102,7 +102,7 @@ record definition from `rabbit.hrl`:
           decorators}). %% transient, recalculated in store/1 (i.e. recovery)
 ```
 
-Then we need to check that the the record returned by Mnesia happens
+Then we need to check that the record returned by Mnesia happens
 is not an internal exchange, otherwise an error will be raised and the
 publish will fail.
 
