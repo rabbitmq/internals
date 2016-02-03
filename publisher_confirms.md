@@ -21,7 +21,7 @@ information.
 The first one is a
 [dtree](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/dtree.erl)
 stored in the field `unconfirmed`, which keeps track of the `MsgSeqNo`
-associated with the QPids to to which the message was delivered and
+associated with the QPids to which the message was delivered and
 the Exchange Name used to publish the message. As explained in the
 _dtree_ documentation, entries on the _dual-index tree_ are stored
 using a primary key, a set of secondary keys, and a value. In the case
