@@ -226,8 +226,8 @@ messages (between acks + messages paged from the cache). The messages
 that were paged out just had their contents paged out, but their
 position in the queue is still in RAM. Now the queue needs to decide
 if this extra information that’s kept in RAM needs to be paged out as
-well, to further reduce memory usage. Here is were finally
-`msg_store_io_batch_size` enters into play (coupled with
+well, to further reduce memory usage. Here is where
+`msg_store_io_batch_size` finally enters into play (coupled with
 `msg_store_credit_disc_bound` as well). Let’s try to understand how
 they work.
 
@@ -241,7 +241,7 @@ and disks.
 The message store has a credit system for each of the clients that
 send writes to it. Every RabbitMQ queue would be a read/write client
 for this store. The message store has a credits mechanism to prevent a
-particular writer to overflow its inbox it with messages. Assuming
+particular writer to overflow its inbox with messages. Assuming
 current default values, when a writer starts talking to the message
 store, it receives an initial credit of 2000 messages, and it will
 receive more credit once 500 messages are processed. When is this
