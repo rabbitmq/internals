@@ -44,8 +44,8 @@ Routing Key, and it will use the exchange to route the message to one
 or various queues, based on the routing key. Let's see how's that
 accomplished.
 
-The first the function does is to check the size of the message since
-RabbitMQ has an upper limit of 2GB for messages.
+The first thing the function does is to check the size of the message 
+since RabbitMQ has an upper limit of 2GB for messages.
 
 Then the function needs to build the resource record for the
 Exchange. Exchanges and Queues are represented internally with a
@@ -102,12 +102,12 @@ record definition from `rabbit.hrl`:
           decorators}). %% transient, recalculated in store/1 (i.e. recovery)
 ```
 
-Then we need to check that the record returned by Mnesia happens
-is not an internal exchange, otherwise an error will be raised and the
-publish will fail.
+Then we need to check that the record returned by Mnesia is not an 
+internal exchange, otherwise an error will be raised and the publish 
+will fail.
 
 The next thing to do is to validate the user id provided with the
-basic publish, if any. If provided, this user id has to validated
+basic publish, if any. If provided, this user id has to be validated
 against the user that created the channel where the message is being
 published. More details
 [here](https://www.rabbitmq.com/validated-user-id.html)
