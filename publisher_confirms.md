@@ -1,7 +1,7 @@
 # Publisher Confirms #
 
 Publisher Confirms are a way to tell publishers that messages have
-been accepted by the broker an that the broker now takes full
+been accepted by the broker and that the broker now takes full
 responsibility for the message (ie: it was written to disk if it was
 persistent, replicated if mirroring was enabled, and so on). Take a
 look at the
@@ -45,7 +45,7 @@ back to the channel. This done by the QPid by casting the following
 message back to the channel:
 
 ```erlang
-{confirm, MsgSeqNos, QPid}`
+{confirm, MsgSeqNos, QPid}
 ```
 
 The channel will deal with this message in the proper `handle_cast/2`
