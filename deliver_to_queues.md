@@ -212,4 +212,4 @@ the various policies that can be applied to it, like TTLs, or
 max-lengths.
 
 To understand what happens once a message arrives to a queue, take
-look at the [variable queue](./variable_queue.md). guide.
+look at the [variable queue](./variable_queue.md) guide.
