@@ -44,7 +44,7 @@ Every protocol supported usually has 1 or 2 listeners:
 Listeners are collected from config file sections of RabbitMQ core
 and plugins that provide protocol support (e.g. STOMP).
 
-`rabbit_networking:boot_tcp/0` and `rabbit_networking:boot_tcp/0` start plain TCP and
+`rabbit_networking:boot_tcp/0` and `rabbit_networking:boot_ssl/0` start plain TCP and
 TLS listeners, respectively.
 
 
