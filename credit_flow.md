@@ -48,7 +48,7 @@ reader -> channel -> queue process -> message store.
 In order to prevent any of those processes from overflowing the next
 one down the chain, we have a credit flow mechanism in place. Each
 process initially grants certain amount of credits to the process that
-it’s sending them messages. Once a process is able to handle N of
+is sending them messages. Once a process is able to handle N of
 those messages, it will grant more credit to the process that sent
 them. Under default credit flow settings (`credit_flow_default_credit`
 under `rabbitmq.config`) these values are 200 messages of initial
