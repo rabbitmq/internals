@@ -41,6 +41,13 @@ queued.
 
 [Deliver To Queues](./deliver_to_queues.md)
 
+### Queues and Message Store
+
+Provides an overview of the Erlang processes that back queues
+and how they interact with the message store, message index and so on.
+
+[Queues and Message Store](./queues_and_message_store.md)
+
 ### Variable Queue Guide ###
 
 Ultimately, messages end up queued at the
