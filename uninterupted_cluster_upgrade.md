@@ -113,10 +113,40 @@ And in 3.7.x, it could have been extended like this:
 #amqqueue{
   name,
   features = #{
-    slaves_list_v2 => #{
+    slaves_list => #{
       slaves => [],
       sync_slaves => [],
-      slaves_pending_shutdown => []
+      slaves_pending_shutdown = []
+    }
+    % 'slaves_list' could exist, if the record was converted for
+    % instance, but would have a lower precedence.
+  }
+}.
+```
+
+This particular change fits the existing map so we don't need to
+introduce a new map. However the new code must support the absence of
+the `slaves_pending_shutdown` field and the old code must not trip up on
+this unknown field.
+
+If in 3.7.x, the representation of slaves would have required a complete
+revamp, a new map could be introduced:
+
+```erlang
+#amqqueue{
+  name,
+  features = #{
+    slaves_list_v2 => #{
+      rabbit@host1 => #{
+        pid = Pid,
+        synced = true,
+        state = ready
+      },
+      rabbit@host2 => #{
+        pid = Pid,
+        synced = false,
+        state = pending_startup
+      }
     }
     % 'slaves_list' could exist, if the record was converted for
     % instance, but would have a lower precedence.
@@ -134,12 +164,13 @@ do_things(#amqqueue{features = #{slaves_list_v2 := Slaves}}) ->
     % Do things with the new format of slaves list.
     really_do_things(Slaves);
 do_things(#amqqueue{features = #{slaves_list := Slaves}}) ->
-    % Do things with the old format of slaves list.
+    % Convert the old format of slaves list and do things with it.
+    Slaves1 = % ...
     really_do_things(Slaves).
 ```
 
-In the end, the record is unchanged and thus, the Mnesia table schema
-remains the same.
+In the end, not matter the complexity of the change in this case, the
+record is unchanged and thus, the Mnesia table schema remains the same.
 
 #### Feature flags
 
