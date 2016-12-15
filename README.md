@@ -80,9 +80,9 @@ certain publisher. This is explained in the following guide:
 
 ### Management Plugin ###
 
-Provides an overview of the v3.6.7+ version of the management plugin architecture.
+An architectural overview of the v3.6.7+ version of the management plugin.
 
-[Management Plugin](./management_plugin_design.md)
+[Metrics and Management Plugin](./metrics_and_management_plugin.md)
 
 ## Maturity and Completeness
 
