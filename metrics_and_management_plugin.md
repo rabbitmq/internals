@@ -38,7 +38,7 @@ memory overhead in relation to the number of active entities in the system.
 
 ## Management Agent
 
-`rabbitmq-managment-agent` is responsible for turning core metrics into
+[rabbitmq-managment-agent](https://github.com/rabbitmq/rabbitmq-management-agent) is responsible for turning core metrics into
 data structures suitable for `rabbitmq-management` consumption.  This is
 done on a per node basis. There are no inter-node communications involved.
 
@@ -56,11 +56,15 @@ index tables (see `rabbitmq_mgmt_metrics.hrl`) that allow the gc process to
 remove all stats for a particular entity.
 
 The management agent plugin also hosts the `rabbitmq_mgmt_external_stats` process
-that periodically updates the core metrics tables with node specific stats.
+that periodically updates the core metrics tables with node specific stats
+(such as free disk space or file descriptors available, data and log directory locations, et cetera).
 Arguably this should be moved to the core at some point.
 
-It is worth noting that the latency of metrics is now related to the retention
-interval and is typically higher than the previous version.
+It is worth noting that the latency of metric processing is now related to the retention
+interval and is typically higher than the previous version. To put it differently, it can
+take longer for the stats DB to have up-to-date information after a particular event occurs.
+This has no effect on the user but test suites that use the HTTP API would often
+[need adapting](https://github.com/michaelklishin/rabbit-hole/blob/master/bin/ci/before_build.sh#L11).
 
 
 ### exometer_slide
@@ -78,7 +82,7 @@ data from multiple sources. A typical example would be vhost message rates.
 
 ## HTTP API
 
-The `rabbitmq-management` plugin is now mostly a fairly thin HTTP querying layer.
+The `rabbitmq-management` plugin is now mostly a fairly thin HTTP API layer.
 
 It also handles the distributed querying and stats merging logic. When a stats
 request comes in the plugin contacts each node in parallel for a set of "raw"
@@ -92,18 +96,18 @@ consumption. Most of this logic is implemented in the `rabbit_mgmt_db` module.
 This distributed querying/merging is arguably the most complex part of the stats
 system.
 
+### Distributed Querying Aggregation of Complex Stats
 
-Because the information returned by the http API is fairly heavily augmented (e.g.
+Because the information returned by the HTTP API is fairly heavily augmented (e.g.
 a request for a queue would also contain channel details) we often have to
 perform multiple distributed queries in response to a stats request.
 For example, to get the channel details for a queue we first have to fetch the
 queue stats, inspect the consumers attached to that queue then query for the
 channel details based on the consumer channel).
 
-
 There are also inefficiencies when listing entities whose number could
 be unbounded (queues, channels, exchanges and connections).
-As we are able to sort on almost any stats including rates we always
+As management allows for sorting on almost any stats including rates we always
 need to fetch _all_ entity stats from each node, merge, sort then typically
 return a smaller page of items to the API. For systems with lots of such
 entities this can become very inefficient as potentially large amounts of data
