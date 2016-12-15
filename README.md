@@ -78,6 +78,12 @@ certain publisher. This is explained in the following guide:
 
 [Authorization and Authentication Backends](./authorization_and_authentication.md)
 
+### Management Plugin ###
+
+Provides an overview of the v3.6.7+ version of the management plugin architecture.
+
+[Management Plugin](./management_plugin_design.md)
+
 ## Maturity and Completeness
 
 These guides are not complete, haven't been edited, and are work in
