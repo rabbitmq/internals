@@ -1,4 +1,4 @@
-## Management Plugin internal architecture 3.6.7+
+# Metrics and Management Plugin Architecture (3.6.7+)
 
 Since 3.6.7 the management plugin has been re-designed to spread the memory
 used for statistics across the entire rabbit cluster instead of aggregating
@@ -6,7 +6,7 @@ it all in a single node. Doing this isn't free. There is a trade-off in
 metric latency and processing for memory stability.
 
 
-### Components
+## Components
 
 There are three main components:
 
@@ -16,7 +16,7 @@ There are three main components:
 
 
 
-### Core metrics
+## Core metrics
 
 Core metrics are implemented in the rabbitmq server itself consisting of
 a set of of ETS tables storing either counters or proplists containing details
@@ -36,8 +36,7 @@ memory overhead in relation to the number of active entities in the system.
 
 
 
-### Management Agent
-
+## Management Agent
 
 `rabbitmq-managment-agent` is responsible for turning core metrics into
 data structures suitable for `rabbitmq-management` consumption.  This is
@@ -64,7 +63,7 @@ It is worth noting that the latency of metrics is now related to the retention
 interval and is typically higher than the previous version.
 
 
-#### exometer_slide
+### exometer_slide
 
 The [exometer_slide](https://github.com/rabbitmq/rabbitmq-management-agent/blob/master/src/exometer_slide.erl)
 module is a key part of the management stats processing.
@@ -77,7 +76,7 @@ One notable addition is the "incremental" slide type that is used to aggregate
 data from multiple sources. A typical example would be vhost message rates.
 
 
-### Management API
+## HTTP API
 
 The `rabbitmq-management` plugin is now mostly a fairly thin HTTP querying layer.
 
