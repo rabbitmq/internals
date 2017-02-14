@@ -1,5 +1,11 @@
 # Metrics and Management Plugin Architecture (3.6.7+)
 
+This document describes key implementation aspects of [RabbitMQ management plugin](https://www.rabbitmq.com/management.html)
+starting with version 3.6.7. Earlier versions of the plugin had a substantially different
+architecture.
+
+## Overview
+
 Since 3.6.7 the management plugin has been re-designed to spread the memory
 used for statistics across the entire rabbit cluster instead of aggregating
 it all in a single node. Doing this isn't free. There is a trade-off in
