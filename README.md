@@ -78,6 +78,13 @@ certain publisher. This is explained in the following guide:
 
 [Authorization and Authentication Backends](./authorization_and_authentication.md)
 
+### Internal Event Subsystem
+
+In some cases components in a running node communicate via events.
+Some events are consumed by other nodes.
+
+[Internal Events](./internal_events.md)
+
 ### Management Plugin ###
 
 An architectural overview of the v3.6.7+ version of the management plugin.

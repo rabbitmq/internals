@@ -14,11 +14,12 @@ metric latency and processing for memory stability.
 
 ## Components
 
-There are three main components:
+There are four main components:
 
-* core metrics
-* rabbitmq-management-agent
-* rabbitmq-management
+ * [Internal event notifications](./internal_events.md)
+ * Core metrics
+ * rabbitmq-management-agent
+ * rabbitmq-management
 
 
 

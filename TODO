@@ -2,9 +2,6 @@ Overall architecture
  - which things are processes, how do messages flow, how do plugins work,
    what are the major subsystems?
 
-Events and management DB
- - rabbit_event, management DB stats types, event -> stats mapping
-
 Profiling / debugging
  - fprof and/or dbg
 
