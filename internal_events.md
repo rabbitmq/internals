@@ -39,7 +39,8 @@ subsystem using a single module, `rabbit_event`. Publishers typically
 use the `rabbit_event:notify/2` function, consumers register
 [gen_event](http://learnyousomeerlang.com/event-handlers) event handlers.
 
-Events have a name (e.g. `connection_created` or `queue_deleted`) and an
+Every event is an instance of the `#event` record.
+An event has a name (e.g. `connection_created` or `queue_deleted`), a timestamp and an
 dictionary-like data structure (a proplist) for payload.
 
 The mechanism is very minimalistic: every event handler receives a copy
