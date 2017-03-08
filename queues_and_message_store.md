@@ -134,6 +134,20 @@ The message store needs an index, from message-id to {file, offset,
 etc}. This is also pluggable. The default index is implemented in ETS
 and so each message has an in-memory cost.
 
+Message store index also contains reference-counters for messages
+and serves as a synchronization point between queues, message store process
+and GC process. Message store inserts new entries to the index and updates
+reference-counters, GC prcess updates file locations and removes entries
+using `delete_object`, queue processes only read entries.
+
+Reference-counter updates, file location updates and deletes from the index
+should be atomic.
+
+Message store logic assumes that lookup operations for non-existent message
+locations (if message is not yet written to file) are cheap.
+
+See message store index behaviour module for more details.
+
 The message store also needs to be garbage collected. There's an extra
 process for GC (so that GC can lock some files and the message store
 can concurrently serve from the rest). Within the message store, "GC"
