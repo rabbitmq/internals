@@ -112,13 +112,12 @@ rabbit_msg_store
 -----------------
 
 There are also two msg_store processes per broker - one for transient
-messages and one for persistent ones (mainly so the transient one can
-just be deleted at startup).
+messages and one for persistent ones (the transient one can be deleted at startup).
 
 -----------------
 
 Since version 3.7 message stores are organised according to
-[per-vhsot message store](#per-vhost-message-store)
+[per-vhost message store](#per-vhost-message-store)
 
 -----------------
 
@@ -180,10 +179,10 @@ supervision trees per-vhost.
 The goal here is to isolate processes managing data (like queues and message stores)
 on different vhosts from each other.
 So when there is an issue in one vhost, others can function without interruptions.
-Vhosts that experianced errors can restart and recover their data or stay "down"
+Vhosts that experienced errors can restart and recover their data or stay "down"
 for some time until an operator intervene and fix the error.
 
-The data directories are also isolated per-vhost. Each vhost has it's own data
+The data directories are also isolated per-vhost. Each vhost has its own data
 directory with all the queues and message stores in it.
 
 The supervision tree for two vhosts and two queues per vhost would look like:
@@ -277,7 +276,7 @@ If a queue process fails, it can be restored without impacting other queues.
 If a message store fails, the entire vhost message store will be restarted,
 including both message stores and all the vhost queues.
 This is because of callback based publish acknowledgements, if a message store
-restarts and queue processes will keep going, some messages can never
+restarts and queue processes keep going, some messages can never
 be acknowledged.
 
 Vhost restart process follows same recovery steps as when a node starts.
@@ -294,7 +293,7 @@ by name, and checking if a vhost is alive.
 Also manages an ETS table, containing an index of vhost processes.
 
 The module is aware of the `vhost_restart_strategy` setting, which controls if a single
-vhsot failure and unability to restart should take down entire node.
+vhost failure and inability to restart should take down the entire node.
 
 If the `rabbit_vhost_sup_sup` supervisor crashes - the node will be shut down.
 
@@ -337,7 +336,7 @@ using recovery process.
 ### Data storage
 
 Each vhost data is stored in a separate directory.
-The directory name for a vhost is `<mnesia_dir>/msg_stores/vhosts/<vhsot_hash>`,
+The directory name for a vhost is `<mnesia_dir>/msg_stores/vhosts/<vhost_hash>`,
 where `<mnesia_dir>` is a configured RabbitMQ data directory (`RABBITMQ_MNESIA_DIR` variable)
 and `<vhost_hash>` is a hash of the vhost name. The hash is used to comply with
 file name restrictions.
@@ -346,7 +345,7 @@ A vhost name hash can be generated using the `rabbit_vhost:dir/1` function.
 
 A vhost directory path can be generated using the `rabbit_vhost:msg_store_dir_path/1` function.
 
-Each vhost directory contains all it's message stores and queues directories.
+Each vhost directory contains all its message stores and queues directories.
 
 Example directory structure of a message store (with one vhost for simplicity):
 
@@ -405,12 +404,12 @@ mnesia_dir
                     --- ...
 ```
 
-Each vhsot directory contains `.vhost` file, with a name of the vhost. The file
+Each vhost directory contains `.vhost` file, with a name of the vhost. The file
 can be used for troubleshooting, when the RabbitMQ node cannot be used to
 generate the vhost directory name.
 
 Each vhost has it's own recovery DETS table.
 
-Queue dorectory names are also generated using a hash function.
+Queue directory names are also generated using a hash function.
 
 Each queue directory contains a `.queue_name` file with the queue and the vhost names.
