@@ -301,8 +301,17 @@ If the `rabbit_vhost_sup_sup` supervisor crashes - the node will be shut down.
 ##### rabbit_vhost_sup_wrapper
 ------------------------------
 
-A helper supervisor to ensure that a vhost supervisor can be restarted
-several times and give up.
+An intermediate supervisor to control vhost restarts.
+It allows several restarts (3 in 5 minutes).
+3 restarts - to handle failures in both message stores,
+5 minutes - so if there is a data corruption error, there is enough time to get
+the error during recover, so the supervisor will not retry recoveries forever.
+
+After max restarts it gives up with `shutdown` message, which can be interpreted
+by the `rabbit_vhost_sup_sup` supervisor according to configured `vhost_restart_strategy`.
+
+The wrapper makes sure that `rabbit_vhost_sup` is started before recovery process
+and is empty, because recovery process will dynamically add children to `rabbit_vhost_sup`.
 
 Should this process fail, the vhost will not be restarted. If an exit signal is
 not `normal` or `shutdown`, the `rabbit_vhost_sup_sup` process will crash
