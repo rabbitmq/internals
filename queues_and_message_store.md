@@ -162,8 +162,8 @@ The message store also needs to be garbage collected. There's an extra
 process for GC (so that GC can lock some files and the message store
 can concurrently serve from the rest). Within the message store, "GC"
 boils down to combining together two files, both of which are known to
-have over 50% messages where the ref count has gone to 0. See
-rabbit_message_store_gc for more details on how that works.
+have over 50% messages where the ref count has gone to 0. See the
+`rabbit_msg_store_gc` module for more details on how that works.
 
 
 Per-vhost message store
