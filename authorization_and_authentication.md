@@ -14,10 +14,55 @@ wrong and RabbitMQ separates the two. For the sake of simplicity, we'll define
 authentication as "identifying who the user is" and authorization as
 "determining what the user is and isn't allowed to do."
 
-## Behaviours and Modules
 
-Authentication and authorization are pluggable. Modules that provide implementations
-must implement the following behaviours:
+## Authentication Mechanisms
+
+AMQP 0-9-1 supports multiple authentication **mechanisms**. The mechanisms decide how a
+client connection authenticates, for example, what should be considered a
+set of credentials.
+
+In practice in 99% of cases only two mechanisms are used:
+
+ * `PLAIN` (a set of credentials such as username and password)
+ * `EXTERNAL`, which assumes authentication happens out of band (not performed
+   by RabbitMQ authN backends), usually [using x509 (TLS) certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
+   This mechanism ignores client-provided credentials and relies on TLS [peer certificate chain
+   verification](https://tools.ietf.org/html/rfc6818).
+
+When a client connection reaches [authentication stage](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.2/src/rabbit_reader.erl#L1304), a mechanism requested by the client
+and supported by the server is selected. The mechanism module then checks whether it can
+be applied to a connection (e.g. the TLS-based mechanism will reject non-TLS connections).
+
+An authentication mechanism is a module that implements the [rabbit_auth_mechanism](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_auth_mechanism.erl) behaviour, which includes
+3 functions:
+
+ * `init/1`: self-explanatory
+ * `should_offer/1`: if this mechanism is enabled, should it be offered for a given socket?
+ * `handle_response/2`: the core authentication logic of the mechanism
+
+The `PLAIN` mechanism extracts client credentials and passes them to
+a chain of authentication and authorization backends.
+
+
+## Authentication and Authorization Backends
+
+Authentication (authN) and authorization (authZ) backend(s) use
+client-provided credentials to decide whether the client passes
+authentication and should be granted access to the target virtual
+host.
+
+The above sentence implies that the `PLAIN` (or similar)
+authentication mechanism is used and already validated the presence of
+client credentials.
+
+Authentication and authorization backends for a chain of
+responsibility: a set of backends is applied to the same set of client
+credentials and as soon as one of them reports success, the entire
+operation is considered to be successful.
+
+Authentication and authorization backends can be provided by
+plugins. They are modules that provide implementations must implement
+the following behaviours:
 
  * `rabbit_authn_backend` for authentication ("authn") backends
  * `rabbit_authz_backend` for authorization ("authz") backends
