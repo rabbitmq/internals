@@ -13,8 +13,8 @@ A familiarity of RabbitMQ queue behaviour is also beneficial.
 Quorum queues implement a persistent, replicated queue on top of
 [Ra](https://github.com/rabbitmq/ra).
 
-One queue uses one Ra cluster and thus each queue has it's own set of processes
-and it's own logical Raft log. Quorum queues are persistent by virtue of all
+One queue uses one Ra cluster and thus each queue has its own set of processes
+and its own logical Raft log. Quorum queues are persistent by virtue of all
 commands and messages being appended to the disk log and
 thus do not make use of the RabbitMQ message store.
 
@@ -26,7 +26,7 @@ subscribe (checkout), ack (settle) and return operations (as well as few others)
 The queue machine logic is implemented in the `rabbit_fifo` module.
 
 Raft clusters are leader/follower systems and thus for a quorum queue all operations
-need to flow through the leader and then replicated to the followers.
+need to flow through the leader and then be replicated to the followers.
 
 All replicas in a Ra cluster/quorum queue execute the same set of operations and maintain
 the same state. Only the leader executes side effects such as sending deliveries
@@ -53,10 +53,10 @@ scenarios.
 
 The quorum queue implementation consists of two primary modules:
 
-`rabbit_fifo`: which is the `ra_machine` behaviour implementation for
+ * `rabbit_fifo`: the `ra_machine` behaviour implementation for
 the queue logic.
 
-`rabbit_fifo_client`: a "client" module providing a high level API for
+ * `rabbit_fifo_client`: a "client" module providing a high level API for
 interacting with quorum queues.
 It is primarily used by channels to perform stateful, reliable,
 session-based interactions with the `rabbit_fifo` state machine.
@@ -66,12 +66,10 @@ session-based interactions with the `rabbit_fifo` state machine.
 
 The RabbitMQ integration use the following modules:
 
-`rabbit_quorum_queue`: quorum queue specific behaviour as well as  thin wrapper
+ * `rabbit_quorum_queue`: quorum queue specific behaviour as well as  thin wrapper
 API for calls into `rabbit_fifo_client`.
-
-`rabbit_amqqueue`: handles dispatch to logic for the appropriate queue type.
-
-`rabbit_channel`: mostly delegates to `rabbit_amqqueue` but also handles
+ * `rabbit_amqqueue`: handles dispatch to logic for the appropriate queue type.
+ * `rabbit_channel`: mostly delegates to `rabbit_amqqueue` but also handles
 `ra_events` emitted from the Ra server.
 
 #### Session Implementation
@@ -102,7 +100,7 @@ With every enqueue that is sent to the quorum queue the `rabbit_fifo_client`
 attaches a monotonically incrementing sequence number as a correlation token
 that Ra will return once a command has been successfully replicated and applied
 to the state machine. This is also the point when
-when it can be confirmed using the publisher confirm mechanism.
+it can be confirmed using the publisher confirm mechanism.
 
 If the `rabbit_fifo_client` receives a correlation sequence number that
 is higher than
