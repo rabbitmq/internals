@@ -150,7 +150,7 @@ quorum queue in question.
 ### Snapshotting
 
 Quorum queues implement a distributed queue as a Raft state machine.
-The main challenge is how to efficiently [snapshot](https://Raft.github.io/Raft.pdf)
+The main challenge is how to efficiently [snapshot](https://raft.github.io/raft.pdf)
 (§7 of the Raft paper)
 the Raft state machine state. Snapshotting allows Raft to reclaim disk space
 used by the log by replacing it with a serialised version of the state
@@ -181,7 +181,7 @@ This simplified quorum queue state machine has 3 commands:
 * SET (settle /ack)
 
 Every ENQ command results in a compacted version of the state at that time
-being cached to used as a snapshot at some future point. Message payloads of
+being cached to be used as a snapshot at some future point. Message payloads of
 the compacted (or "dehydrated") state are replaced by a simple prefix message count.
 
 Ra uses a mechanism called the "Release Cursor Effect" that allows the state
@@ -208,7 +208,7 @@ are all consumed anyway.
 
 ### Avoiding Unbounded Log Growth
 
-The show must go on. FIFO (ish) processing must continue else the log will grow and
+The show must go on. FIFO (ish) processing must continue or the log will grow and
 grow and grow.
 
 Things that could cause the Raft log to grow in an unbounded fashion:
@@ -261,7 +261,7 @@ to be said about that.
 
 A channel receives a `basic.publish` that is routed to a quorum queue.
 It calls `rabbit_amqqueue:deliver/3` which in turn inspects the queue type
-of the queue and calls `rabbit_qourum_queue:deliver/3`.
+of the queue and calls `rabbit_quorum_queue:deliver/3`.
 `rabbit_quorum_queue` then calls `rabbit_fifo_client:enqueue/3` with the
 channel scoped msg sequence number.
 `rabbit_fifo_client` formats an `enqueue` message containing it's own ra
