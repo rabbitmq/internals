@@ -37,7 +37,7 @@ to be later served over HTTP to the management plugin UI application.
 Both internal event publishers and consumers interact with the notification
 subsystem using a single module, `rabbit_event`. Publishers typically
 use the `rabbit_event:notify/2` function, consumers register
-[gen_event](http://learnyousomeerlang.com/event-handlers) event handlers.
+[gen_event](https://learnyousomeerlang.com/event-handlers) event handlers.
 
 Every event is an instance of the `#event` record.
 An event has a name (e.g. `connection_created` or `queue_deleted`), a timestamp and an

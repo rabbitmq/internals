@@ -1,7 +1,7 @@
 This file attempts to document the overall structure of a queue, and
 how persistence works.
 
-Each queue is a [gen_server2 Erlang process](http://learnyousomeerlang.com/clients-and-servers). The usual pattern of the API and
+Each queue is a [gen_server2 Erlang process](https://learnyousomeerlang.com/clients-and-servers). The usual pattern of the API and
 implementation being in one file is not applied; `rabbit_amqqueue` is
 the API (a module) and `rabbit_amqqueue_process` is the implementation (a `gen_server2`).
 
