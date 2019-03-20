@@ -5,7 +5,7 @@ implements [access control](https://www.rabbitmq.com/access-control.html).
 
 Authentication backends should not be confused with authentication mechanisms,
 which are defined in some protocols supported by RabbitMQ.
-For AMQP 0-9-1 authentication mechanisms, see [documentation](http://www.rabbitmq.com/authentication.html).
+For AMQP 0-9-1 authentication mechanisms, see [documentation](https://www.rabbitmq.com/authentication.html).
 
 ## Definitions
 
