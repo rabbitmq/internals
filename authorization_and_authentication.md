@@ -55,14 +55,14 @@ The above sentence implies that the `PLAIN` (or similar)
 authentication mechanism is used and already validated the presence of
 client credentials.
 
-Authentication and authorization backends for a chain of
+Authentication and authorization backends form a chain of
 responsibility: a set of backends is applied to the same set of client
 credentials and as soon as one of them reports success, the entire
 operation is considered to be successful.
 
 Authentication and authorization backends can be provided by
-plugins. They are modules that provide implementations must implement
-the following behaviours:
+plugins. They are modules that must implement the following
+behaviours:
 
  * `rabbit_authn_backend` for authentication ("authn") backends
  * `rabbit_authz_backend` for authorization ("authz") backends
@@ -102,10 +102,16 @@ It contains following functions:
 ``` erlang
 % if user is allowed to access broker.
 user_login_authorization(UserName) -> {ok, Impl} | {ok, Impl, Tags} | {refused, Format, Args} | {error, Reason}.
-% if user have access to specific vhost.
-check_vhost_access(#auth_user{}, Vhost, Socket) -> boolean() | {error, Reason}.
-% if user have access to specific resource
-check_resource_access(#auth_user{}, #resource{}, Permission) -> boolean() | {error, Reason}.
+% if user has access to specific vhost.
+check_vhost_access(#auth_user{}, Vhost, Context) -> boolean() | {error, Reason}.
+% if user has access to specific resource
+check_resource_access(#auth_user{}, #resource{}, Permission), Context -> boolean() | {error, Reason}.
+% if user has access to specific topic
+check_topic_access(#auth_user{}, #resource{}, Permission, Context) -> boolean() | {error, Reason}.
+% if the backend supports state or credential expiration
+state_can_expire() -> boolean()
+% optional: update backend state (eg. new JWT token)
+update_state(#auth_user{}, NewState) -> {ok, #auth_user{}} | {refused, Fmt, Args} | {error, Reason}.
 ```
 
 Where 
@@ -116,6 +122,7 @@ Where
  * `Tags` is user tags. Those are used by features such as policies, plugins such as management, and so on. Tags can be an empty list.
  * `Vhost` is self-explanatory
  * `Permission` currently one of `configure`, `read`, or `write`
+ * `Context` is a map with additional information (like peer address or routing key, or protocol-specific information like MQTT client ID). It is slightly different for each of the three check functions.
 
 The `#auth_user{}` record represents a user whenever we need to
 check access to vhosts and resources.
@@ -149,7 +156,7 @@ Backends are configured the usual way and can have multiple "syntaxes"
 
 If backend is defined by a tuple,
 the first element will be used as an `AuthN` module and the second as the `AuthZ` one.
-If it is defined by an atom, it willbe used for both `AuthN` and `AuthZ`.
+If it is defined by an atom, it will be used for both `AuthN` and `AuthZ`.
 
 When a backend is defined by a list, the server will use modules in the chain in order
 until one of them returns a positive result or the list is exhausted (the Chain of Responsibility
@@ -165,9 +172,28 @@ will be used for authorization checks later.
  * `rabbit_auth_backend_ldap`: provides `AuthN` and `AuthZ` backends in a single module, backed by LDAP
  * `rabbit_auth_backend_http`: provides `AuthN` and `AuthZ` backends in a single module, backed by an HTTP service
  * `rabbit_auth_backend_amqp`: provides `AuthN` and `AuthZ` backends in a single module, backed by an AMQP 0-9-1 service that uses request/response ("RPC")
- * `rabbit_quth_backend_uaa`: provides `AuthN` and `AuthZ` backends in a single module, backed by [Cloud Foundry UAA](https://github.com/cloudfoundry/uaa).
+ * `rabbit_auth_backend_oauth2`: provides `AuthN` and `AuthZ` backends in a single module, that uses OAuth 2.0 (JWT) tokens. It is not specific to but developed against [Cloud Foundry UAA](https://github.com/cloudfoundry/uaa).
 
+### Permission caching
 
+Permissions are cached for latest operations by each channel. There is
+a cache for resource and another for topic permissions. When a
+`Resource/Topic + Context + Permission` triplet is successfully
+authorized, it is added to the corresponding cache. When the cache is
+full (currently max 12 entries in each), oldest entry is rotated
+out. The caches are cleared when the channel process is
+hibernated. They are also cleared every `channel_tick_interval` if any
+enabled backend supports state expiration.
 
+To give an extreme and unrealistic example: when only the internal
+backend is enabled a client only doing publishes to the same resource
+with high frequency can continue to do so indefinitely even after its
+permission is revoked for that resource (because the channel cache is
+never cleared and never rotates).
 
-
+Separately there is also a [caching authN/authZ
+backend](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_auth_backend_cache/README.md)
+that provides a TTL based caching layer for another backend. It is
+useful to reduce network traffic and latency for backends that use
+external services (like LDAP or HTTP). Its time based expiration
+allows better control over when entries are evicted from the cache.
