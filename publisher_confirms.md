@@ -10,6 +10,10 @@ documentation in order to understand the feature.
 
 ## Tracking Confirms ##
 
+Note: Implementation was slightly changed in
+[3.8.0](https://github.com/rabbitmq/rabbitmq-server/pull/1893),
+replacing the dtree strucutre described below.
+
 Confirms work a bit differently than mandatory messages and
 `basic.return`. In the case of mandatory messages we only need to send
 a `basic.return` if the message can't be routed, but for publisher
@@ -19,7 +23,7 @@ fields in the channel's state record in order to track this
 information.
 
 The first one is a
-[dtree](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/dtree.erl)
+[dtree](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.28/src/dtree.erl)
 stored in the field `unconfirmed`, which keeps track of the `MsgSeqNo`
 associated with the QPids to which the message was delivered and
 the Exchange Name used to publish the message. As explained in the

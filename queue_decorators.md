@@ -12,7 +12,7 @@ or by the federation plugin, to know when to move messages across
 [federated queues](https://www.rabbitmq.com/federated-queues.html).
 
 Decorators need to implement the `rabbit_queue_decorator`
-[behaviour](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_queue_decorator.erl)
+[behaviour](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_queue_decorator.erl)
 and are usually associated with queues via policies.
 
 A Queue decorator can receive notifications of the following events:

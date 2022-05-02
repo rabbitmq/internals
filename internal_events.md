@@ -61,7 +61,7 @@ dummy usernames are used, e.g. `rmq-internal` or `rmq-cli`.
 
 ## rabbitmq-event-exchange Plugin
 
-[rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-event-exchange) is a plugin that consumes internal events
+[rabbitmq-event-exchange](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_event_exchange) is a plugin that consumes internal events
 and re-publishes them to a topic exchange, thus exposing the events
 to clients (applications).
 

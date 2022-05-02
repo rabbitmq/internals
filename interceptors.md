@@ -4,7 +4,7 @@ Interceptors are modules implemented as behaviours that allow plugin
 authors to intercept and modify AMQP methods before they are handled
 by the channel process. They were originally created for the
 development of the
-[Sharding Plugin](https://github.com/rabbitmq/rabbitmq-sharding/blob/master/README.extra.md#intercepted-channel-behaviour)
+[Sharding Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_sharding/README.extra.md#intercepted-channel-behaviour)
 to facilitate mapping queue names as specified by users vs. the actual
 names used by sharded queues. Another plugin using interceptors is the
 [Message Timestamp Plugin](https://github.com/rabbitmq/rabbitmq-message-timestamp)
@@ -16,7 +16,7 @@ behaviour. The most important callback is `intercept/3` where an
 interceptor will be provided with the original AMQP method record that
 the channel should process, the AMQP method content, if any, and the
 interceptor state (see
-[init/1](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_channel_interceptor.erl#L36)). This
+[init/1](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_channel_interceptor.erl#L36)). This
 callback should take the AMQP method that was passed to it, and the
 content, and modify it accordingly. For example, the Sharding Plugin
 will receive a `basic.consume` method, with a sharded queue called

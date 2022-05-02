@@ -156,7 +156,7 @@ should be atomic.
 Message store logic assumes that lookup operations for non-existent message
 locations (if message is not yet written to file) are cheap.
 
-See the [message store index behaviour module](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_msg_store_index.erl) for more details.
+See the [message store index behaviour module](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit_common/src/rabbit_msg_store_index.erl) for more details.
 
 The message store also needs to be garbage collected. There's an extra
 process for GC (so that GC can lock some files and the message store

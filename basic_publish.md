@@ -70,7 +70,7 @@ called `"my_exchange"`, we will end up with the following record:
 
 Resources like that one are used everywhere in RabbitMQ, so it's a
 good idea to study their parts in the
-[rabbit_types](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_types.erl)
+[rabbit_types](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit_common/src/rabbit_types.erl)
 module where this declarations are defined.
 
 Once we have the exchange record, `basic.publish` will use it to see

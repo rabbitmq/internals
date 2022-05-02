@@ -7,9 +7,13 @@ see how the channel handles mandatory messages.
 
 ## Tracking Mandatory Messages ##
 
+Note: Implementation was changed in
+[3.8.0](https://github.com/rabbitmq/rabbitmq-server/pull/1831),
+removing the dtree strucutre described below.
+
 Mandatory messages are tracked in the `mandatory` field of the
 channel's state record. Messages are tracked using our own
-[dtree](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/dtree.erl)
+[dtree](https://github.com/rabbitmq/rabbitmq-server/blob/v3.7.28/src/dtree.erl)
 data structure. As explained in that module documentation, entries on
 the _dual-index tree_ are stored using a primary key, a set of
 secondary keys, and a value. In the case of tracking mandatory
