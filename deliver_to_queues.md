@@ -39,7 +39,7 @@ via the `delegate` framework. The Erlang message will have this shape:
 ```
 
 You can learn more about the delegate framework
-[here](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/delegate.erl#L19).
+[here](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit_common/src/delegate.erl#L10).
 
 ## AMQQueue Process Message Handling ##
 
@@ -51,7 +51,7 @@ callback will ack the `credit_flow` issued in above, and it will
 monitor the message sender. The message sender is usually the
 `rabbit_channel` that received the process. This pid is tracked using
 the
-[pmon module](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/pmon.erl). The
+[pmon module](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit_common/src/pmon.erl). The
 state is kept as part of the `senders` field in the gen_server state
 record. Once the message sender is accounted for the delivery is
 passed to the function `deliver_or_enqueue/3`. There is where the
@@ -171,7 +171,7 @@ channel forever if a queue that's blocking it is actually down.
 
 Take a look at the `handle_info` channel callback for the case when a
 `DOWN` message is
-[received](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_channel.erl#L578).
+[received](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_channel.erl#L818).
 
 ### Process Mandatory Messages ###
 

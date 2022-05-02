@@ -51,11 +51,11 @@ and how they interact with the message store, message index and so on.
 ### Variable Queue Guide ###
 
 Ultimately, messages end up queued at the
-[backing queue](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_backing_queue.erl). From
+[backing queue](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_backing_queue.erl). From
 here they can be retrieved, acked, purged, and so on. The most common
 implementation of the backing queue behaviour is the
 `rabbit_variable_queue`
-[module](https://github.com/rabbitmq/rabbitmq-server/blob/master/src/rabbit_variable_queue.erl),
+[module](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_variable_queue.erl),
 explained in the following guide:
 
 [Variable Queue](./variable_queue.md)

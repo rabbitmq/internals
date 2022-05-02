@@ -28,7 +28,7 @@ There are four main components:
 Core metrics are implemented in the rabbitmq server itself consisting of
 a set of of ETS tables storing either counters or proplists containing details
 or metrics of various entities. The schema of each table is documented in
-[rabbit_core_metrics.hrl](https://github.com/rabbitmq/rabbitmq-common/blob/master/include/rabbit_core_metrics.hrl)
+[rabbit_core_metrics.hrl](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit_common/include/rabbit_core_metrics.hrl)
 in `rabbitmq-common`.
 
 Mostly counters that are incremented in real-time as message interactions occur
@@ -45,7 +45,7 @@ memory overhead in relation to the number of active entities in the system.
 
 ## Management Agent
 
-[rabbitmq-managment-agent](https://github.com/rabbitmq/rabbitmq-management-agent) is responsible for turning core metrics into
+[rabbitmq-managment-agent](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_management_agent) is responsible for turning core metrics into
 data structures suitable for `rabbitmq-management` consumption.  This is
 done on a per node basis. There are no inter-node communications involved.
 
@@ -53,7 +53,7 @@ The management agent runs a set of metrics collector processes. There is one
 process per core metrics table. Each collector periodically read its associated
 core metrics table and performs some table-specific processing which produces
 new data points to be inserted into the management metrics tables (defined in
-[rabbitmq_mgmt_metrics.hrl](https://github.com/rabbitmq/rabbitmq-management-agent/blob/master/include/rabbit_mgmt_metrics.hrl)).
+[rabbitmq_mgmt_metrics.hrl](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_management_agent/include/rabbit_mgmt_metrics.hrl)).
 The collection interval is determined by the smallest configured retention intervals.
 
 In addition to the collector processes there is a garbage collection event
@@ -76,7 +76,7 @@ This has no effect on the user but test suites that use the HTTP API would often
 
 ### exometer_slide
 
-The [exometer_slide](https://github.com/rabbitmq/rabbitmq-management-agent/blob/master/src/exometer_slide.erl)
+The [exometer_slide](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_management_agent/src/exometer_slide.erl)
 module is a key part of the management stats processing.
 It allows us to reasonably efficiently store a sliding window of incoming metrics
 and also perform various processing on this window. It was extracted from the
@@ -93,7 +93,7 @@ The `rabbitmq-management` plugin is now mostly a fairly thin HTTP API layer.
 
 It also handles the distributed querying and stats merging logic. When a stats
 request comes in the plugin contacts each node in parallel for a set of "raw"
-stats (typically `exometer_slide` instances). It uses the [delegate](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/delegate.erl)
+stats (typically `exometer_slide` instances). It uses the [delegate](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit_common/src/delegate.erl)
 module for this and has it's own `delegate` supervision tree to avoid affecting
 the one used for core rabbit delegations. Once stats for
 each node has been collected it merges the data then proceeds with processing

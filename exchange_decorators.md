@@ -8,11 +8,11 @@ alone the whole routing logic to the underlying exchange.
 Decorators are usually associated with exchanges via policies.
 
 See the `active_for/1`
-[callback](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_exchange_decorator.erl#L70)
+[callback](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit/src/rabbit_exchange_decorator.erl#L70)
 to understand which functions on the exchange would be decorated.
 
 Take a look at the
-[Sharding Plugin](https://github.com/rabbitmq/rabbitmq-sharding/blob/master/src/rabbit_sharding_exchange_decorator.erl)
+[Sharding Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_sharding/src/rabbit_sharding_exchange_decorator.erl)
 and the
-[Federation Plugin](https://github.com/rabbitmq/rabbitmq-federation/blob/master/src/rabbit_federation_exchange.erl)
+[Federation Plugin](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbitmq_federation/src/rabbit_federation_exchange.erl)
 to see how exchange decorators are implemented.

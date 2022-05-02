@@ -25,7 +25,7 @@ In practice in 99% of cases only two mechanisms are used:
 
  * `PLAIN` (a set of credentials such as username and password)
  * `EXTERNAL`, which assumes authentication happens out of band (not performed
-   by RabbitMQ authN backends), usually [using x509 (TLS) certificates](https://github.com/rabbitmq/rabbitmq-auth-mechanism-ssl).
+   by RabbitMQ authN backends), usually [using x509 (TLS) certificates](https://github.com/rabbitmq/rabbitmq-server/tree/master/deps/rabbitmq_auth_mechanism_ssl).
    This mechanism ignores client-provided credentials and relies on TLS [peer certificate chain
    verification](https://tools.ietf.org/html/rfc6818).
 
@@ -33,7 +33,7 @@ When a client connection reaches [authentication stage](https://github.com/rabbi
 and supported by the server is selected. The mechanism module then checks whether it can
 be applied to a connection (e.g. the TLS-based mechanism will reject non-TLS connections).
 
-An authentication mechanism is a module that implements the [rabbit_auth_mechanism](https://github.com/rabbitmq/rabbitmq-common/blob/master/src/rabbit_auth_mechanism.erl) behaviour, which includes
+An authentication mechanism is a module that implements the [rabbit_auth_mechanism](https://github.com/rabbitmq/rabbitmq-server/blob/master/deps/rabbit_common/src/rabbit_auth_mechanism.erl) behaviour, which includes
 3 functions:
 
  * `init/1`: self-explanatory
