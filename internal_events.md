@@ -27,7 +27,7 @@ transferred over the internal event subsystem.
 For example, when a connection is accepted, authenticated and access
 to the target virtual host is authorised, it will emit an event of type
 `connection_created`. When a connection is closed or fails for any reason,
-a `connection_closed` event is deleted. Events from connections, channels, queues, consumers,
+a `connection_closed` event is emitted. Events from connections, channels, queues, consumers,
 and so on are processed and stored as metrics
 to be later served over HTTP to the management plugin UI application.
 
