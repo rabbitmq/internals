@@ -65,7 +65,7 @@ mandatory flag of the delivery. If the message was published as
 mandatory, then at this point the queue process will consider the
 message as routed to the queue. To that effect, the queue process will
 cast the message `{mandatory_received, MsgSeqNo}` to the channel pid
-that received the delivery. The channel process will the proceed to
+that received the delivery. The channel process will proceed to
 forget the message, since from the point of view mandatory message
 handling, there isn't anything left to do for that particular
 delivery.
